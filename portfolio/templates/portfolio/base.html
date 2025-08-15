@@ -305,7 +305,12 @@
                                 <li><a class="dropdown-item" href="{% url 'post-create' %}">Nueva Publicación</a></li>
                                 <li><a class="dropdown-item" href="{% url 'profile' %}">Mi Perfil</a></li>
                                 <li><hr class="dropdown-divider"></li>
-                                <li><a class="dropdown-item" href="{% url 'blog-logout' %}">Cerrar Sesión</a></li>
+                                <li>
+                                    <form method="POST" action="{% url 'blog-logout' %}" style="display:inline;">
+                                        {% csrf_token %}
+                                        <button type="submit" class="dropdown-item">Cerrar Sesión</button>
+                                        </form>
+                                </li>
                             </ul>
                         </li>
                     {% else %}
