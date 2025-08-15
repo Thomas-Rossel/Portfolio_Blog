@@ -1,0 +1,137 @@
+{% extends 'portfolio/base.html' %}
+
+{% block title %}Blog - Thomas Fernandez Rossel{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="text-center text-white mb-5">
+        <h1 class="display-4 mb-3">
+            <i class="fas fa-blog"></i> Mi Blog
+        </h1>
+        <p class="lead">Reflexiones sobre programación, tecnología y más</p>
+        
+        {% if user.is_authenticated %}
+            <a href="{% url 'post-create' %}" class="btn btn-success btn-lg">
+                <i class="fas fa-plus"></i> Nueva Publicación
+            </a>
+        {% else %}
+            <a href="{% url 'blog-login' %}" class="btn btn-primary btn-lg">
+                <i class="fas fa-sign-in-alt"></i> Iniciar Sesión para Publicar
+            </a>
+        {% endif %}
+    </div>
+
+    <div class="row">
+        <div class="col-lg-8">
+            {% for post in posts %}
+                <article class="post-card fade-in">
+                    {% if post.image %}
+                        <img src="{{ post.image.url }}" alt="{{ post.title }}" class="post-image">
+                    {% endif %}
+                    
+                    <div class="post-content">
+                        <div class="d-flex justify-content-between align-items-start mb-3">
+                            <div>
+                                <h2>
+                                    <a href="{% url 'post-detail' post.id %}" class="post-title text-decoration-none">
+                                        {{ post.title }}
+                                    </a>
+                                </h2>
+                                <div class="post-meta">
+                                    <i class="fas fa-user text-primary"></i> {{ post.author.username }} • 
+                                    <i class="fas fa-calendar text-primary"></i> {{ post.date_posted|date:"d M Y" }} •
+                                    <i class="fas fa-comments text-primary"></i> {{ post.comments.count }} comentarios
+                                </div>
+                            </div>
+                            {% if post.author == user %}
+                                <div class="dropdown">
+                                    <button class="btn btn-sm btn-outline-secondary dropdown-toggle" data-bs-toggle="dropdown">
+                                        <i class="fas fa-ellipsis-v"></i>
+                                    </button>
+                                    <ul class="dropdown-menu">
+                                        <li><a class="dropdown-item" href="{% url 'post-update' post.id %}">
+                                            <i class="fas fa-edit"></i> Editar
+                                        </a></li>
+                                        <li><a class="dropdown-item text-danger" href="{% url 'post-delete' post.id %}">
+                                            <i class="fas fa-trash"></i> Eliminar
+                                        </a></li>
+                                    </ul>
+                                </div>
+                            {% endif %}
+                        </div>
+                        
+                        <div class="post-excerpt">
+                            {{ post.content|truncatewords:30 }}
+                        </div>
+                        
+                        <a href="{% url 'post-detail' post.id %}" class="btn btn-primary">
+                            <i class="fas fa-arrow-right"></i> Leer más
+                        </a>
+                    </div>
+                </article>
+            {% empty %}
+                <div class="text-center text-white">
+                    <i class="fas fa-inbox fa-5x mb-4 opacity-50"></i>
+                    <h3>No hay publicaciones aún</h3>
+                    <p class="lead">¡Sé el primero en compartir algo!</p>
+                    {% if user.is_authenticated %}
+                        <a href="{% url 'post-create' %}" class="btn btn-success btn-lg">
+                            <i class="fas fa-plus"></i> Crear Primera Publicación
+                        </a>
+                    {% endif %}
+                </div>
+            {% endfor %}
+
+            <!-- Pagination -->
+            {% if is_paginated %}
+                <nav aria-label="Navegación de páginas" class="mt-4">
+                    <ul class="pagination justify-content-center">
+                        {% if page_obj.has_previous %}
+                            <li class="page-item">
+                                <a class="page-link" href="?page=1">Primera</a>
+                            </li>
+                            <li class="page-item">
+                                <a class="page-link" href="?page={{ page_obj.previous_page_number }}">Anterior</a>
+                            </li>
+                        {% endif %}
+                        
+                        <li class="page-item active">
+                            <span class="page-link">
+                                Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}
+                            </span>
+                        </li>
+                        
+                        {% if page_obj.has_next %}
+                            <li class="page-item">
+                                <a class="page-link" href="?page={{ page_obj.next_page_number }}">Siguiente</a>
+                            </li>
+                            <li class="page-item">
+                                <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">Última</a>
+                            </li>
+                        {% endif %}
+                    </ul>
+                </nav>
+            {% endif %}
+        </div>
+
+        <!-- Sidebar -->
+        <div class="col-lg-4">
+            <div class="content-card">
+                <h4><i class="fas fa-info-circle text-primary"></i> Sobre el Blog</h4>
+                <p>Este es mi espacio personal donde comparto mis experiencias en programación, proyectos interesantes y reflexiones sobre tecnología.</p>
+                
+                <hr>
+                
+                <h5><i class="fas fa-tags text-primary"></i> Temas Populares</h5>
+                <div class="d-flex flex-wrap gap-2">
+                    <span class="badge bg-primary">Python</span>
+                    <span class="badge bg-success">Django</span>
+                    <span class="badge bg-info">Programación</span>
+                    <span class="badge bg-warning">Hardware</span>
+                    <span class="badge bg-secondary">Estudiante</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

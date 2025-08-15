@@ -1,0 +1,39 @@
+{% extends 'portfolio/base.html' %}
+
+{% block title %}Eliminar Publicación - Blog{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="form-container fade-in text-center">
+                <i class="fas fa-exclamation-triangle fa-4x text-warning mb-4"></i>
+                <h2>Confirmar Eliminación</h2>
+                <p class="lead">¿Estás seguro de que quieres eliminar esta publicación?</p>
+                
+                <div class="alert alert-warning text-start">
+                    <h5><i class="fas fa-file-alt"></i> "{{ post.title }}"</h5>
+                    <small class="text-muted">
+                        Publicado el {{ post.date_posted|date:"d M Y" }}
+                    </small>
+                </div>
+                
+                <p class="text-danger">
+                    <i class="fas fa-warning"></i> 
+                    Esta acción no se puede deshacer.
+                </p>
+
+                <form method="POST" class="d-inline">
+                    {% csrf_token %}
+                    <button class="btn btn-danger btn-lg me-3" type="submit">
+                        <i class="fas fa-trash"></i> Sí, Eliminar
+                    </button>
+                    <a href="{% url 'post-detail' post.id %}" class="btn btn-outline-secondary btn-lg">
+                        <i class="fas fa-times"></i> Cancelar
+                    </a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

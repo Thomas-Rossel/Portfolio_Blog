@@ -1,0 +1,120 @@
+{% extends 'portfolio/base.html' %}
+
+{% block title %}{{ post.title }} - Blog{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-lg-8 offset-lg-2">
+            <article class="content-card fade-in">
+                <!-- Post Header -->
+                <div class="text-center mb-4">
+                    <h1 class="display-5 mb-3">{{ post.title }}</h1>
+                    <div class="post-meta mb-3">
+                        <img src="{{ post.author.profile.image.url }}" alt="{{ post.author.username }}" 
+                             class="rounded-circle me-2" style="width: 40px; height: 40px;">
+                        <strong>{{ post.author.username }}</strong> • 
+                        {{ post.date_posted|date:"d M Y, H:i" }}
+                        
+                        {% if post.author == user %}
+                            <div class="float-end">
+                                <a href="{% url 'post-update' post.id %}" class="btn btn-sm btn-outline-primary">
+                                    <i class="fas fa-edit"></i> Editar
+                                </a>
+                                <a href="{% url 'post-delete' post.id %}" class="btn btn-sm btn-outline-danger">
+                                    <i class="fas fa-trash"></i> Eliminar
+                                </a>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <!-- Post Image -->
+                {% if post.image %}
+                    <div class="text-center mb-4">
+                        <img src="{{ post.image.url }}" alt="{{ post.title }}" 
+                             class="img-fluid rounded shadow" style="max-height: 400px;">
+                    </div>
+                {% endif %}
+
+                <!-- Post Content -->
+                <div class="post-content">
+                    {{ post.content|linebreaks }}
+                </div>
+
+                <!-- Post Actions -->
+                <div class="d-flex justify-content-between align-items-center mt-4 pt-4 border-top">
+                    <div>
+                        <button class="btn btn-outline-primary btn-sm">
+                            <i class="fas fa-thumbs-up"></i> Me gusta
+                        </button>
+                        <button class="btn btn-outline-secondary btn-sm">
+                            <i class="fas fa-share"></i> Compartir
+                        </button>
+                    </div>
+                    <small class="text-muted">
+                        <i class="fas fa-comments"></i> {{ comments.count }} comentarios
+                    </small>
+                </div>
+            </article>
+
+            <!-- Comments Section -->
+            <div class="comment-section">
+                <h3><i class="fas fa-comments text-primary"></i> Comentarios ({{ comments.count }})</h3>
+
+                <!-- Add Comment Form -->
+                {% if user.is_authenticated %}
+                    <div class="content-card mt-3">
+                        <form method="POST" action="{% url 'add-comment' post.id %}">
+                            {% csrf_token %}
+                            <div class="mb-3">
+                                <label for="id_content" class="form-label">Agregar comentario:</label>
+                                {{ comment_form.content }}
+                            </div>
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-paper-plane"></i> Publicar Comentario
+                            </button>
+                        </form>
+                    </div>
+                {% else %}
+                    <div class="content-card mt-3 text-center">
+                        <p class="mb-3">
+                            <i class="fas fa-lock text-muted fa-2x"></i>
+                        </p>
+                        <p>Debes <a href="{% url 'blog-login' %}">iniciar sesión</a> para comentar.</p>
+                    </div>
+                {% endif %}
+
+                <!-- Comments List -->
+                {% for comment in comments %}
+                    <div class="comment mt-3 fade-in">
+                        <div class="d-flex align-items-start">
+                            <img src="{{ comment.author.profile.image.url }}" alt="{{ comment.author.username }}" 
+                                 class="rounded-circle me-3" style="width: 50px; height: 50px;">
+                            <div class="flex-grow-1">
+                                <div class="d-flex justify-content-between align-items-start">
+                                    <h6 class="mb-1">{{ comment.author.username }}</h6>
+                                    <small class="text-muted">{{ comment.date_posted|date:"d M Y, H:i" }}</small>
+                                </div>
+                                <p class="mb-0">{{ comment.content|linebreaks }}</p>
+                            </div>
+                        </div>
+                    </div>
+                {% empty %}
+                    <div class="text-center mt-4">
+                        <i class="fas fa-comment-slash fa-3x text-muted mb-3"></i>
+                        <p class="text-muted">No hay comentarios aún. ¡Sé el primero en comentar!</p>
+                    </div>
+                {% endfor %}
+            </div>
+
+            <!-- Back to Blog -->
+            <div class="text-center mt-4">
+                <a href="{% url 'blog-home' %}" class="btn btn-outline-primary">
+                    <i class="fas fa-arrow-left"></i> Volver al Blog
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

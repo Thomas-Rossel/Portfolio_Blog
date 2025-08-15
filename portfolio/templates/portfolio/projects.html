@@ -1,0 +1,73 @@
+{% extends 'portfolio/base.html' %}
+
+{% block title %}Proyectos - Thomas Fernandez Rossel{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="text-center text-white mb-5">
+        <h1 class="display-4 mb-3">
+            <i class="fas fa-code"></i> Mis Proyectos
+        </h1>
+        <p class="lead">Una selección de mis trabajos y desarrollos</p>
+    </div>
+
+    <div class="row">
+        {% for project in projects %}
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="post-card h-100 fade-in">
+                    <img src="/static/images/{{ project.image }}" alt="{{ project.title }}" 
+                         class="post-image" style="height: 200px;">
+                    
+                    <div class="post-content d-flex flex-column h-100">
+                        <div class="flex-grow-1">
+                            <div class="d-flex justify-content-between align-items-start mb-3">
+                                <h4 class="project-title">{{ project.title }}</h4>
+                                <span class="badge bg-{% if project.status == 'Completado' %}success{% else %}warning{% endif %}">
+                                    {{ project.status }}
+                                </span>
+                            </div>
+                            
+                            <p class="text-muted mb-3">{{ project.description }}</p>
+                            
+                            <div class="mb-3">
+                                <h6><i class="fas fa-tools text-primary"></i> Tecnologías:</h6>
+                                <div class="d-flex flex-wrap gap-1">
+                                    {% for tech in project.technologies %}
+                                        <span class="badge bg-secondary">{{ tech }}</span>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-auto">
+                            <div class="d-flex gap-2">
+                                <a href="{{ project.github }}" class="btn btn-outline-dark flex-fill">
+                                    <i class="fab fa-github"></i> Código
+                                </a>
+                                {% if project.demo != '#' %}
+                                    <a href="{{ project.demo }}" class="btn btn-primary flex-fill">
+                                        <i class="fas fa-external-link-alt"></i> Demo
+                                    </a>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+    <!-- Call to Action -->
+    <div class="row mt-5">
+        <div class="col-12">
+            <div class="content-card text-center fade-in">
+                <h3><i class="fas fa-lightbulb text-warning"></i> ¿Tienes una idea?</h3>
+                <p class="lead">Siempre estoy buscando nuevos desafíos y proyectos interesantes.</p>
+                <a href="{% url 'portfolio-contact' %}" class="btn btn-primary btn-lg">
+                    <i class="fas fa-envelope"></i> ¡Hablemos!
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

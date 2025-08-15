@@ -1,0 +1,54 @@
+{% extends 'portfolio/base.html' %}
+
+{% block content %}
+<div class="hero-section fade-in">
+    <div class="container">
+        <h1 class="hero-title">Thomas Fernandez Rossel</h1>
+        <h2 class="hero-subtitle">Estudiante de programación y futuro ingeniero</h2>
+        <p class="hero-description">
+            Soy un actual estudiante de cuarto de informática en el instituto Huergo, 
+            apasionado por el mundo de la programación. Con más de 3 años de experiencia 
+            en la utilización de Python, aunque me especializo en la creación de códigos 
+            funcionales, también sostengo un interés muy fuerte por la parte física de la computadora.
+        </p>
+        <div class="mt-4">
+            <a href="{% url 'portfolio-projects' %}" class="btn btn-primary btn-lg me-3">
+                <i class="fas fa-code"></i> Ver Proyectos
+            </a>
+            <a href="{% url 'blog-home' %}" class="btn btn-outline-light btn-lg">
+                <i class="fas fa-blog"></i> Leer Blog
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <div class="content-card fade-in">
+                <h3 class="text-center mb-4">
+                    <i class="fas fa-tools text-primary"></i> 
+                    Tecnologías que manejo
+                </h3>
+                <div class="row text-center">
+                    <div class="col-md-4 mb-3">
+                        <i class="fab fa-python fa-3x text-warning mb-2"></i>
+                        <h5>Python</h5>
+                        <p class="text-muted">3+ años de experiencia</p>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <i class="fas fa-database fa-3x text-success mb-2"></i>
+                        <h5>Bases de Datos</h5>
+                        <p class="text-muted">SQL y NoSQL</p>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <i class="fas fa-microchip fa-3x text-info mb-2"></i>
+                        <h5>Hardware</h5>
+                        <p class="text-muted">Electrónica y sistemas</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,155 @@
+{% extends 'portfolio/base.html' %}
+
+{% block title %}Contacto - Thomas Fernandez Rossel{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="text-center text-white mb-5">
+        <h1 class="display-4 mb-3">
+            <i class="fas fa-envelope"></i> Contacto
+        </h1>
+        <p class="lead">¿Quieres colaborar en un proyecto? ¡Hablemos!</p>
+    </div>
+
+    <div class="row">
+        <!-- Contact Info -->
+        <div class="col-lg-4 mb-4">
+            <div class="content-card fade-in">
+                <h3><i class="fas fa-info-circle text-primary"></i> Información de Contacto</h3>
+                
+                <div class="contact-item mb-3">
+                    <div class="d-flex align-items-center">
+                        <i class="fas fa-envelope fa-2x text-primary me-3"></i>
+                        <div>
+                            <h6 class="mb-1">Email</h6>
+                            <a href="mailto:{{ contact_info.email }}" class="text-decoration-none">
+                                {{ contact_info.email }}
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="contact-item mb-3">
+                    <div class="d-flex align-items-center">
+                        <i class="fab fa-github fa-2x text-dark me-3"></i>
+                        <div>
+                            <h6 class="mb-1">GitHub</h6>
+                            <a href="{{ contact_info.github }}" class="text-decoration-none" target="_blank">
+                                thomas-rossel
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="contact-item mb-3">
+                    <div class="d-flex align-items-center">
+                        <i class="fas fa-map-marker-alt fa-2x text-danger me-3"></i>
+                        <div>
+                            <h6 class="mb-1">Ubicación</h6>
+                            <span class="text-muted">{{ contact_info.location }}</span>
+                        </div>
+                    </div>
+                </div>
+
+                <hr>
+
+                <h5><i class="fas fa-clock text-primary"></i> Disponibilidad</h5>
+                <p class="text-muted">
+                    Generalmente respondo dentro de 24-48 horas. 
+                    Actualmente disponible para proyectos freelance y colaboraciones.
+                </p>
+            </div>
+        </div>
+
+        <!-- Contact Form -->
+        <div class="col-lg-8">
+            <div class="content-card fade-in">
+                <h3><i class="fas fa-paper-plane text-primary"></i> Envíame un Mensaje</h3>
+                
+                <form id="contactForm" class="mt-4">
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="name" class="form-label">Nombre *</label>
+                            <input type="text" class="form-control" id="name" required>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="email" class="form-label">Email *</label>
+                            <input type="email" class="form-control" id="email" required>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="subject" class="form-label">Asunto *</label>
+                        <input type="text" class="form-control" id="subject" required>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="message" class="form-label">Mensaje *</label>
+                        <textarea class="form-control" id="message" rows="6" required
+                                placeholder="Cuéntame sobre tu proyecto o idea..."></textarea>
+                    </div>
+                    
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-primary btn-lg">
+                            <i class="fas fa-paper-plane"></i> Enviar Mensaje
+                        </button>
+                    </div>
+                </form>
+
+                <!-- Success Message (hidden by default) -->
+                <div id="successMessage" class="alert alert-success mt-3" style="display: none;">
+                    <i class="fas fa-check-circle"></i> 
+                    ¡Mensaje enviado con éxito! Te responderé pronto.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Social Media & Links -->
+    <div class="row mt-5">
+        <div class="col-12">
+            <div class="content-card text-center fade-in">
+                <h3><i class="fas fa-share-alt text-primary"></i> Sígueme en Redes</h3>
+                <p class="lead mb-4">Mantente al día con mis proyectos y actualizaciones</p>
+                
+                <div class="social-links-large">
+                    <a href="{{ contact_info.github }}" class="btn btn-outline-dark btn-lg me-3" target="_blank">
+                        <i class="fab fa-github fa-2x"></i>
+                        <br><small>GitHub</small>
+                    </a>
+                    <a href="#" class="btn btn-outline-primary btn-lg me-3" target="_blank">
+                        <i class="fab fa-linkedin fa-2x"></i>
+                        <br><small>LinkedIn</small>
+                    </a>
+                    <a href="{% url 'blog-home' %}" class="btn btn-outline-success btn-lg">
+                        <i class="fas fa-blog fa-2x"></i>
+                        <br><small>Blog</small>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- JavaScript for Contact Form -->
+<script>
+document.getElementById('contactForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    // Simulate form submission
+    const successMessage = document.getElementById('successMessage');
+    const form = e.target;
+    
+    // Hide form and show success message
+    form.style.display = 'none';
+    successMessage.style.display = 'block';
+    
+    // Reset form after 3 seconds and show it again
+    setTimeout(() => {
+        form.reset();
+        form.style.display = 'block';
+        successMessage.style.display = 'none';
+    }, 3000);
+});
+</script>
+{% endblock %}

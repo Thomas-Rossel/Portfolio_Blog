@@ -1,0 +1,128 @@
+{% extends 'portfolio/base.html' %}
+
+{% block title %}Sobre Mí - Thomas Fernandez Rossel{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="text-center text-white mb-5">
+        <h1 class="display-4 mb-3">
+            <i class="fas fa-user"></i> Sobre Mí
+        </h1>
+        <p class="lead">Conoce más sobre mi trayectoria y habilidades</p>
+    </div>
+
+    <div class="row">
+        <!-- Personal Info -->
+        <div class="col-lg-4">
+            <div class="content-card text-center fade-in">
+                <img src="/static/images/profile.jpg" alt="Thomas Fernandez Rossel" 
+                     class="rounded-circle mb-3" style="width: 200px; height: 200px; object-fit: cover;">
+                <h3>Thomas Fernandez Rossel</h3>
+                <p class="text-muted">Estudiante de Informática</p>
+                <p class="lead">Instituto Técnico Huergo</p>
+                
+                <div class="social-links mt-3">
+                    <a href="{{ contact_info.github }}" class="btn btn-outline-dark me-2">
+                        <i class="fab fa-github"></i>
+                    </a>
+                    <a href="#" class="btn btn-outline-primary me-2">
+                        <i class="fab fa-linkedin"></i>
+                    </a>
+                    <a href="mailto:thomas.rossel@ejemplo.com" class="btn btn-outline-danger">
+                        <i class="fas fa-envelope"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bio & Skills -->
+        <div class="col-lg-8">
+            <div class="content-card fade-in">
+                <h3><i class="fas fa-quote-left text-primary"></i> Mi Historia</h3>
+                <p class="lead">
+                    Soy un estudiante de cuarto año de informática en el Instituto Técnico Huergo, 
+                    con una profunda pasión por la programación y la tecnología.
+                </p>
+                <p>
+                    Mi viaje en el mundo de la programación comenzó hace más de 3 años cuando descubrí Python. 
+                    Lo que empezó como curiosidad se convirtió en una verdadera pasión. Me especializo en 
+                    crear códigos funcionales y eficientes, pero también mantengo un fuerte interés por 
+                    el hardware y la parte física de las computadoras.
+                </p>
+                <p>
+                    Actualmente estoy enfocado en el desarrollo web con Django, explorando las posibilidades 
+                    del machine learning, y siempre buscando nuevos desafíos que me permitan crecer como 
+                    programador. Mi objetivo es convertirme en ingeniero en sistemas y contribuir al mundo 
+                    tecnológico con soluciones innovadoras.
+                </p>
+
+                <hr class="my-4">
+
+                <h4><i class="fas fa-tools text-primary"></i> Habilidades Técnicas</h4>
+                <div class="row">
+                    {% for skill in skills %}
+                        <div class="col-md-6 mb-3">
+                            <div class="d-flex justify-content-between align-items-center mb-1">
+                                <span>
+                                    <i class="{{ skill.icon }} text-{{ skill.color }}"></i> 
+                                    {{ skill.name }}
+                                </span>
+                                <span class="text-muted">{{ skill.level }}%</span>
+                            </div>
+                            <div class="progress" style="height: 8px;">
+                                <div class="progress-bar bg-{{ skill.color }}" 
+                                     style="width: {{ skill.level }}%"></div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+
+                <hr class="my-4">
+
+                <h4><i class="fas fa-graduation-cap text-primary"></i> Educación</h4>
+                {% for edu in education %}
+                    <div class="border-start border-primary border-3 ps-3 mb-3">
+                        <h5 class="mb-1">{{ edu.degree }}</h5>
+                        <p class="text-primary fw-bold mb-1">{{ edu.institution }}</p>
+                        <p class="text-muted mb-2">{{ edu.year }}</p>
+                        <p class="mb-0">{{ edu.description }}</p>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    <!-- Interests -->
+    <div class="row mt-4">
+        <div class="col-12">
+            <div class="content-card fade-in">
+                <h3 class="text-center mb-4">
+                    <i class="fas fa-heart text-danger"></i> Mis Intereses
+                </h3>
+                <div class="row text-center">
+                    <div class="col-md-3 mb-3">
+                        <i class="fas fa-code fa-3x text-primary mb-3"></i>
+                        <h5>Programación</h5>
+                        <p class="text-muted">Desarrollo de software y aplicaciones web</p>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <i class="fas fa-microchip fa-3x text-success mb-3"></i>
+                        <h5>Hardware</h5>
+                        <p class="text-muted">Electrónica y arquitectura de computadoras</p>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <i class="fas fa-robot fa-3x text-warning mb-3"></i>
+                        <h5>IA & ML</h5>
+                        <p class="text-muted">Inteligencia artificial y machine learning</p>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <i class="fas fa-gamepad fa-3x text-info mb-3"></i>
+                        <h5>Gaming</h5>
+                        <p class="text-muted">Desarrollo de juegos y entretenimiento</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
