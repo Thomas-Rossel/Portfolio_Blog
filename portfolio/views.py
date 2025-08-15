@@ -33,31 +33,31 @@ def projects(request):
     """Vista para la página de proyectos"""
     projects_list = [
         {
-            'title': 'Sistema de Gestión Escolar',
-            'description': 'Aplicación web desarrollada en Django para gestionar estudiantes, profesores y calificaciones.',
-            'technologies': ['Python', 'Django', 'SQLite', 'Bootstrap'],
-            'image': 'default.jpg',  # Cambiar por imagen real
+            'title': 'Gymtrack',
+            'description': 'Aplicación web para registrar entrenamientos en el gimnasio y hacer una optima sobrecarga progresiva',
+            'technologies': ['Next.js', 'Javascript', 'SQL'],
+            'image': 'Gymtrack.jpg',
             'github': '#',
             'demo': '#',
             'status': 'Completado'
         },
         {
-            'title': 'Bot de Discord',
-            'description': 'Bot multifuncional para Discord con comandos de moderación y entretenimiento.',
-            'technologies': ['Python', 'Discord.py', 'APIs'],
-            'image': 'default.jpg',
+            'title': 'Remake Space Invaders',
+            'description': 'Remake del famoso juego de naves espaciales "Space Invaders", lo hice como un proyecto en la secundaria',
+            'technologies': ['Python', 'Pygame', 'Json'],
+            'image': 'Space-Invaders.jpg',
+            'github': '#',
+            'demo': '#',
+            'status': 'Completado'
+        },
+        {
+            'title': 'BookReader',
+            'description': 'Una aplicacion donde alguien interesado en los libros puede ingresar y buscar distintas recomendaciones segun sus generos favoritos',
+            'technologies': ['Django', 'HTML', 'Javascript'],
+            'image': 'libro.jpg',
             'github': '#',
             'demo': '#',
             'status': 'En desarrollo'
-        },
-        {
-            'title': 'Calculadora Científica',
-            'description': 'Calculadora con interfaz gráfica desarrollada en tkinter con funciones avanzadas.',
-            'technologies': ['Python', 'Tkinter', 'Math'],
-            'image': 'default.jpg',
-            'github': '#',
-            'demo': '#',
-            'status': 'Completado'
         }
     ]
     
@@ -72,9 +72,8 @@ def contact(request):
     context = {
         'title': 'Contacto',
         'contact_info': {
-            'email': 'thomas.rossel@ejemplo.com',  # Cambiar por email real
+            'email': 'thomy17fr@gmail.com',
             'github': 'https://github.com/thomas-rossel',
-            'linkedin': '#',  # Agregar LinkedIn si lo tiene
             'location': 'Buenos Aires, Argentina'
         }
     }
